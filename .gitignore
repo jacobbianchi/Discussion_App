@@ -4,3 +4,4 @@ __pycache__
 .vscode/
 venv/
 palmer_penguins.csv
+template.py
