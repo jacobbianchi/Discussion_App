@@ -3,3 +3,4 @@ __pycache__
 .streamlit/
 .vscode/
 venv/
+palmer_penguins.csv
