@@ -48,8 +48,11 @@ if uploaded_file is not None:
         # What to do if it is a numeric variable
         if col_type_selection == "Numeric":
 
-            st.write('''### Five Number Summary:''')
+            # Summary Statistics
+            st.write('''### Summary Staticstics:''')
+            st.table(df[col_selection].describe())
 
+            # Histogram Display
             st.write('''### Histogram''')
             color_selection = st.color_picker("Color", "#2774AE")
             hist_bins = st.slider("Number of Bins", min_value = 5, max_value = 150, value = 30)
@@ -68,3 +71,12 @@ if uploaded_file is not None:
             fig.savefig(plot_bytes, format='png', dpi = 300)
             plot_bytes.seek(0)
             st.download_button(label='Download Plot', data=plot_bytes, file_name='plot.png', mime='image/png')
+        
+        # What to do if it is a categorical variable
+        if col_type_selection == "Categorical":
+
+            # Table of Proprtions
+            st.write('''### Table of Proportions:''')
+            st.table(df[col_selection].value_counts(normalize = True))
+
+            # Bar Graph Display
