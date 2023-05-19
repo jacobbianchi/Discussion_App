@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from matplotlib import pyplot as plt
+import io
 
 st.write('''# Explore a Dataset!''')
 st.sidebar.write('''# Options''')
@@ -63,4 +64,7 @@ if uploaded_file is not None:
             st.pyplot(fig)
             
             # Download the histogram
-            
+            plot_bytes = io.BytesIO()
+            fig.savefig(plot_bytes, format='png', dpi = 300)
+            plot_bytes.seek(0)
+            st.download_button(label='Download Plot', data=plot_bytes, file_name='plot.png', mime='image/png')
