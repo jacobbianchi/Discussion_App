@@ -37,6 +37,7 @@ python-dateutil==2.8.2
 pytz==2023.3
 requests==2.30.0
 rich==13.3.5
+seaborn==0.12.2
 six==1.16.0
 smmap==5.0.0
 streamlit==1.22.0
