@@ -1,4 +1,5 @@
 import streamlit as st
+import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 import io
@@ -56,20 +57,26 @@ if uploaded_file is not None:
             st.write('''### Histogram''')
             hist_bins = st.slider("Number of Bins", min_value = 5, max_value = 150, value = 30)
             bin_color_selection = st.color_picker("Bin Color", "#2774AE")
+
             show_density = st.checkbox("Density Curve")
             if show_density:
                 density_color_selection = st.color_picker("Density Curve Color", "#FFD100")
+
             hist_title = st.text_input("Set Title", "Histogram")
             hist_x_title = st.text_input("Set x-axis Title", col_selection)
             hist_y_title = st.text_input("Set y-axis Title", "Count")
+
             fig, ax = plt.subplots()
             ax.hist(df[col_selection], bins = hist_bins, edgecolor = "black", color = bin_color_selection)
             ax.set_title(hist_title)
             ax.set_xlabel(hist_x_title)
             ax.set_ylabel(hist_y_title)
+
             if show_density:
                 density = sns.kdeplot(df[col_selection], color = density_color_selection, ax = ax.twinx())
                 density.set_yticks([])
+                density.set_ylabel('')
+                
             st.pyplot(fig)
             
             # Download the histogram
