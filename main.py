@@ -89,29 +89,30 @@ if uploaded_file is not None:
         if col_type_selection == "Categorical":
 
             # Preparing the Data
-            props = pd.DataFrame(df[col_selection].value_counts(normalize = True).reset_index())
+            counts = pd.DataFrame(df[col_selection].value_counts().reset_index())
 
             # Table of Proprtions
             st.write('''### Table of Proportions:''')
+            props = pd.DataFrame(df[col_selection].value_counts(normalize = True).reset_index())
             st.table(props)
 
             # Bar Plot Display
             st.write('''### Bar Plot''')
             sort_bars = st.radio("Sort:", ("Ascending", "Descending"), index = 0)
             if sort_bars == "Ascending":
-                props = props.sort_values(by = "proportion", ascending = True)
+                counts = counts.sort_values(by = "count", ascending = True)
             else:
-                props = props.sort_values(by = "proportion", ascending = False)
+                counts = counts.sort_values(by = "count", ascending = False)
             bar_color_selection = st.color_picker("Color", "#2774AE")
             bar_title = st.text_input("Set Title", "Bar Plot")
             bar_x_title = st.text_input("Set x-axis Title", col_selection)
-            bar_y_title = st.text_input("Set y-axis Title", "Proportion")
+            bar_y_title = st.text_input("Set y-axis Title", "Count")
             fig, ax = plt.subplots()
-            ax.bar(props[col_selection], props["proportion"], color = bar_color_selection)
+            ax.bar(counts[col_selection], counts["count"], color = bar_color_selection)
             ax.set_title(bar_title)
             ax.set_xlabel(bar_x_title)
             ax.set_ylabel(bar_y_title)
-            ax.set_xticklabels(props[col_selection], rotation = 45)
+            ax.set_xticklabels(counts[col_selection], rotation = 45)
             st.pyplot(fig)
 
             # Download the bar plot
