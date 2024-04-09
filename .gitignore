@@ -2,7 +2,7 @@ __pycache__
 .DS_Store
 .streamlit/
 .vscode/
-venv/
+.conda/
 palmer_penguins.csv
 template.py
 Discussion_App/
